@@ -1,10 +1,11 @@
 import MissionUtils from "@woowacourse/mission-utils";
+import { PROMPT } from "../constants/message";
 
 const readLineAsync = (question) =>
   MissionUtils.Console.readLineAsync(question);
 
 const inputView = {
-  readPurchaseAmount: () => readLineAsync("구입금액을 입력해 주세요.\n"),
+  readPurchaseAmount: () => readLineAsync(PROMPT.PURCHASE_AMOUNT),
 };
 
 export default inputView;
