@@ -1,11 +1,14 @@
 import { LOTTO_PRICE } from "./constants/constants";
 import { AMOUNT_ERROR } from "./constants/errorMessage";
+import randomPickUniqueNumber from "./utils/randomPickUniqueNumber";
 
 class LottoSalesTerminal {
   #price;
+  #onRandomPickUniqueNumber;
 
-  constructor() {
+  constructor(onRandomPickUniqueNumber = randomPickUniqueNumber) {
     this.#price = LOTTO_PRICE;
+    this.#onRandomPickUniqueNumber = onRandomPickUniqueNumber;
   }
 
   #validateAmount(amountInput) {
@@ -21,8 +24,25 @@ class LottoSalesTerminal {
       throw new Error(AMOUNT_ERROR.NOT_MULTIPLE_OF_PRICE);
   }
 
+  #calculateQuantity(amount) {
+    return Math.floor(amount / this.#price);
+  }
+
+  #issueAutomatic(quantity) {
+    const lottos = Array.from({ length: quantity }, () =>
+      this.#onRandomPickUniqueNumber()
+    );
+
+    return lottos.map((lotto) => [...lotto].sort((a, b) => a - b));
+  }
+
   publishLottos(amountInput) {
     this.#validateAmount(amountInput);
+
+    const amount = Number(amountInput);
+    const quantity = this.#calculateQuantity(amount);
+
+    return this.#issueAutomatic(quantity);
   }
 }
 

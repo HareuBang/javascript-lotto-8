@@ -14,9 +14,7 @@ describe("로또 판매 단말기 테스트", () => {
         .mockReturnValueOnce([5, 3, 16, 11, 38, 32])
         .mockReturnValueOnce([44, 36, 35, 16, 11, 7]);
 
-      lottoSalesTerminal = new LottoSalesTerminal({
-        randomPickUniqueNumber: mockRandomPickUniqueNumber,
-      });
+      lottoSalesTerminal = new LottoSalesTerminal(mockRandomPickUniqueNumber);
     });
 
     test.each([
