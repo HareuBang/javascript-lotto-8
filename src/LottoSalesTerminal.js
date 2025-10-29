@@ -1,24 +1,24 @@
+import { LOTTO_PRICE } from "./constants/constants";
+import { AMOUNT_ERROR } from "./constants/errorMessage";
+
 class LottoSalesTerminal {
   #price;
 
   constructor() {
-    this.#price = 1000;
+    this.#price = LOTTO_PRICE;
   }
 
   #validateAmount(amountInput) {
-    if (amountInput.trim() === "")
-      throw new Error("[ERROR] 구입 금액을 입력해 주세요.");
+    if (amountInput.trim() === "") throw new Error(AMOUNT_ERROR.INPUT_EMPTY);
 
     const validNumber = Number(amountInput);
 
-    if (!Number.isFinite(validNumber))
-      throw new Error("[ERROR] 구입 금액에 숫자를 입력해 주세요.");
+    if (!Number.isFinite(validNumber)) throw new Error(AMOUNT_ERROR.NOT_NUMBER);
 
-    if (validNumber <= 0)
-      throw new Error("[ERROR] 구입 금액은 0보다 커야 합니다.");
+    if (validNumber <= 0) throw new Error(AMOUNT_ERROR.NOT_POSITIVE_NUMBER);
 
     if (validNumber % this.#price !== 0)
-      throw new Error("[ERROR] 구입 금액은 1000원 단위여야 합니다.");
+      throw new Error(AMOUNT_ERROR.NOT_MULTIPLE_OF_PRICE);
   }
 
   publishLottos(amountInput) {
