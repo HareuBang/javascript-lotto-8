@@ -1,1 +1,6 @@
-export const LOTTO_PRICE = 1000;
+export const LOTTO = {
+  PRICE: 1000,
+  MIN_NUMBER: 1,
+  MAX_NUMBER: 45,
+  COUNT: 6,
+};

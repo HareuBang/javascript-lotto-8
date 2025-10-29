@@ -1,4 +1,4 @@
-import { LOTTO_PRICE } from "./constants/constants";
+import { LOTTO } from "./constants/constants";
 import { AMOUNT_ERROR } from "./constants/errorMessage";
 import randomPickUniqueNumber from "./utils/randomPickUniqueNumber";
 
@@ -7,7 +7,7 @@ class LottoSalesTerminal {
   #onRandomPickUniqueNumber;
 
   constructor(onRandomPickUniqueNumber = randomPickUniqueNumber) {
-    this.#price = LOTTO_PRICE;
+    this.#price = LOTTO.PRICE;
     this.#onRandomPickUniqueNumber = onRandomPickUniqueNumber;
   }
 
