@@ -5,10 +5,15 @@ import randomPickUniqueNumber from "./utils/randomPickUniqueNumber";
 class LottoSalesTerminal {
   #price;
   #onRandomPickUniqueNumber;
+  #onLottoFactory;
 
-  constructor(onRandomPickUniqueNumber = randomPickUniqueNumber) {
+  constructor({
+    onRandomPickUniqueNumber = randomPickUniqueNumber,
+    onLottoFactory,
+  }) {
     this.#price = LOTTO.PRICE;
     this.#onRandomPickUniqueNumber = onRandomPickUniqueNumber;
+    this.#onLottoFactory = onLottoFactory;
   }
 
   #validateAmount(amountInput) {
@@ -28,12 +33,15 @@ class LottoSalesTerminal {
     return Math.floor(amount / this.#price);
   }
 
-  #issueAutomatic(quantity) {
-    const lottos = Array.from({ length: quantity }, () =>
-      this.#onRandomPickUniqueNumber()
-    );
+  #issueLotto() {
+    const lotto = this.#onRandomPickUniqueNumber();
+    const sortedLotto = [...lotto].sort((a, b) => a - b);
 
-    return lottos.map((lotto) => [...lotto].sort((a, b) => a - b));
+    return this.#onLottoFactory(sortedLotto);
+  }
+
+  #issueAutomaticLottos(quantity) {
+    return Array.from({ length: quantity }, () => this.#issueLotto());
   }
 
   publishLottos(amountInput) {
@@ -41,8 +49,9 @@ class LottoSalesTerminal {
 
     const amount = Number(amountInput);
     const quantity = this.#calculateQuantity(amount);
+    const lottos = this.#issueAutomaticLottos(quantity);
 
-    return this.#issueAutomatic(quantity);
+    return { quantity, lottos };
   }
 }
 

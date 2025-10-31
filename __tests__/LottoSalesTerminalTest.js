@@ -1,22 +1,27 @@
 import LottoSalesTerminal from "../src/LottoSalesTerminal.js";
 import { AMOUNT_ERROR } from "../src/constants/errorMessage.js";
-import { LOTTO_PRICE } from "../src/constants/constants.js";
+import { LOTTO } from "../src/constants/constants.js";
 
 describe("로또 판매 단말기 테스트", () => {
-  describe("publishLottos 기능 테스트", () => {
-    let lottoSalesTerminal;
+  let lottoSalesTerminal;
 
-    beforeEach(() => {
-      // 정렬되지 않은 로또 번호 배열들
-      const mockRandomPickUniqueNumber = jest
-        .fn()
-        .mockReturnValueOnce([23, 41, 43, 21, 8, 42])
-        .mockReturnValueOnce([5, 3, 16, 11, 38, 32])
-        .mockReturnValueOnce([44, 36, 35, 16, 11, 7]);
+  beforeEach(() => {
+    const mockLottoFactory = jest.fn((numbers) => numbers);
 
-      lottoSalesTerminal = new LottoSalesTerminal(mockRandomPickUniqueNumber);
+    // 정렬되지 않은 로또 번호 배열들
+    const mockRandomPickUniqueNumber = jest
+      .fn()
+      .mockReturnValueOnce([23, 41, 43, 21, 8, 42])
+      .mockReturnValueOnce([5, 3, 16, 11, 38, 32])
+      .mockReturnValueOnce([44, 36, 35, 16, 11, 7]);
+
+    lottoSalesTerminal = new LottoSalesTerminal({
+      onRandomPickUniqueNumber: mockRandomPickUniqueNumber,
+      onLottoFactory: mockLottoFactory,
     });
+  });
 
+  describe("publishLottos 기능 테스트", () => {
     test.each([
       [
         "3000",
@@ -29,16 +34,17 @@ describe("로또 판매 단말기 테스트", () => {
       ],
       ["1000", 1, [[8, 21, 23, 41, 42, 43]]],
     ])(
-      `로또 구입 금액 "%s" 원을 입력하면 로또 가격(${LOTTO_PRICE})으로 나눈 %d 수량의 오름차순으로 정렬된 로또를 발행한다`,
-      (amount, _, expected) => {
-        expect(lottoSalesTerminal.publishLottos(amount)).toEqual(expected);
+      `로또 구입 금액 "%s" 원을 입력하면 로또 가격(${LOTTO.PRICE})으로 나눈 %d 수량의 오름차순으로 정렬된 로또를 발행한다`,
+      (amount, quantity, lottos) => {
+        expect(lottoSalesTerminal.publishLottos(amount)).toEqual({
+          quantity,
+          lottos,
+        });
       }
     );
   });
 
   describe("publishLottos 예외 테스트", () => {
-    const lottoSalesTerminal = new LottoSalesTerminal();
-
     test.each([[""], ["   "]])(
       `구입 금액이 빈 문자열 또는 공백일 경우 "${AMOUNT_ERROR.INPUT_EMPTY}" 에러를 반환합니다. (입력: '%s')`,
       (amount) => {
