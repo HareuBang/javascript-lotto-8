@@ -1,35 +1,28 @@
-import { LOTTO } from "./constants/constants";
-import { AMOUNT_ERROR } from "./constants/errorMessage";
-import randomPickUniqueNumber from "./utils/randomPickUniqueNumber";
+import { LOTTO } from "./constants/constants.js";
+import { AMOUNT_NOT_MULTIPLE_OF_PRICE_ERROR } from "./constants/errorMessage.js";
+import randomPickUniqueNumber from "./utils/randomPickUniqueNumber.js";
+import ApplicationError from "./utils/ApplicationError.js";
 
 class LottoSalesTerminal {
   #price;
   #onRandomPickUniqueNumber;
   #onLottoFactory;
-  #onLottoTicket;
+  #onLottoTicketFactory;
 
   constructor({
     onRandomPickUniqueNumber = randomPickUniqueNumber,
     onLottoFactory,
-    onLottoTicket,
+    onLottoTicketFactory,
   }) {
     this.#price = LOTTO.PRICE;
     this.#onRandomPickUniqueNumber = onRandomPickUniqueNumber;
     this.#onLottoFactory = onLottoFactory;
-    this.#onLottoTicket = onLottoTicket;
+    this.#onLottoTicketFactory = onLottoTicketFactory;
   }
 
-  #validateAmount(amountInput) {
-    if (amountInput.trim() === "") throw new Error(AMOUNT_ERROR.INPUT_EMPTY);
-
-    const validNumber = Number(amountInput);
-
-    if (!Number.isFinite(validNumber)) throw new Error(AMOUNT_ERROR.NOT_NUMBER);
-
-    if (validNumber <= 0) throw new Error(AMOUNT_ERROR.NOT_POSITIVE_NUMBER);
-
-    if (validNumber % this.#price !== 0)
-      throw new Error(AMOUNT_ERROR.NOT_MULTIPLE_OF_PRICE);
+  #validateAmount(amount) {
+    if (amount % this.#price !== 0)
+      throw new ApplicationError(AMOUNT_NOT_MULTIPLE_OF_PRICE_ERROR);
   }
 
   #calculateQuantity(amount) {
@@ -38,7 +31,7 @@ class LottoSalesTerminal {
 
   #issueLotto() {
     const lotto = this.#onRandomPickUniqueNumber();
-    const sortedLotto = [...lotto].sort((a, b) => a - b);
+    const sortedLotto = lotto.sort((a, b) => a - b);
 
     return this.#onLottoFactory(sortedLotto);
   }
@@ -47,14 +40,13 @@ class LottoSalesTerminal {
     return Array.from({ length: quantity }, () => this.#issueLotto());
   }
 
-  publishLottos(amountInput) {
-    this.#validateAmount(amountInput);
+  publishLottos(amount) {
+    this.#validateAmount(amount);
 
-    const amount = Number(amountInput);
     const quantity = this.#calculateQuantity(amount);
     const lottos = this.#issueAutomaticLottos(quantity);
 
-    return this.#onLottoTicket({ amount, quantity, lottos });
+    return this.#onLottoTicketFactory({ amount, quantity, lottos });
   }
 }
 
