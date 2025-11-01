@@ -6,14 +6,17 @@ class LottoSalesTerminal {
   #price;
   #onRandomPickUniqueNumber;
   #onLottoFactory;
+  #onLottoTicket;
 
   constructor({
     onRandomPickUniqueNumber = randomPickUniqueNumber,
     onLottoFactory,
+    onLottoTicket,
   }) {
     this.#price = LOTTO.PRICE;
     this.#onRandomPickUniqueNumber = onRandomPickUniqueNumber;
     this.#onLottoFactory = onLottoFactory;
+    this.#onLottoTicket = onLottoTicket;
   }
 
   #validateAmount(amountInput) {
@@ -51,7 +54,7 @@ class LottoSalesTerminal {
     const quantity = this.#calculateQuantity(amount);
     const lottos = this.#issueAutomaticLottos(quantity);
 
-    return { quantity, lottos };
+    return this.#onLottoTicket({ amount, quantity, lottos });
   }
 }
 
