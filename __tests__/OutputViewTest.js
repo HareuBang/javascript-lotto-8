@@ -1,4 +1,4 @@
-import OutputView from "../src/console/OutputView";
+import OutputView from "../src/console/OutputView.js";
 
 describe("콘솔 출력 클래스 테스트", () => {
   describe("renderLottoTicket 기능 테스트", () => {
