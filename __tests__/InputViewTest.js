@@ -1,4 +1,4 @@
-import InputView from "../src/console/inputView.js";
+import InputView from "../src/console/InputView.js";
 import { NUMBER_ERROR } from "../src/constants/errorMessage.js";
 
 describe("콘솔 입력 클래스 테스트", () => {
