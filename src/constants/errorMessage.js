@@ -10,8 +10,9 @@ export const LOTTO_ERROR = {
 };
 
 export const NUMBER_ERROR = {
-  INPUT_EMPTY: "값을 입력하셔야 합니다.",
   NOT_NUMBER: "숫자를 입력하셔야 합니다.",
   NOT_POSITIVE_NUMBER: "0보다 큰 숫자를 입력하셔야 합니다.",
   NOT_INTEGER: "소수점은 허용하지 않습니다.",
 };
+
+export const INPUT_EMPTY_ERROR = "값을 입력하셔야 합니다.";
