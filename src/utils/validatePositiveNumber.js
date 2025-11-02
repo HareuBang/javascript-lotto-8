@@ -1,7 +1,7 @@
 import ApplicationError from "./ApplicationError.js";
 import { NUMBER_ERROR } from "../constants/errorMessage.js";
 
-export const validatePositiveNumber = (numberInput) => {
+const validatePositiveNumber = (numberInput) => {
   if (numberInput.trim() === "")
     throw new ApplicationError(NUMBER_ERROR.INPUT_EMPTY);
 
@@ -16,3 +16,5 @@ export const validatePositiveNumber = (numberInput) => {
   if (validNumber <= 0)
     throw new ApplicationError(NUMBER_ERROR.NOT_POSITIVE_NUMBER);
 };
+
+export default validatePositiveNumber;
