@@ -1,15 +1,13 @@
 class WinningLottoChecker {
   #inputView;
-  #lottoFactory;
 
-  constructor({ inputView, lottoFactory }) {
+  constructor({ inputView }) {
     this.#inputView = inputView;
-    this.#lottoFactory = lottoFactory;
   }
 
   async run(lottoTicket) {
     const winningLottosInput = this.#inputView.handleWinningLotto();
-    const winningLotto = lottoFactory(winningLottosInput);
+    const bonusNumberInput = this.#inputView.handleBonusNumber();
   }
 }
 

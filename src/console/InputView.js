@@ -56,6 +56,14 @@ class InputView {
 
     return winningLottoInput.split(SPLIT_SEPARATOR).map(Number);
   }
+
+  async handleBonusNumber() {
+    const bonusNumberInput = await this.#readLineAsync(PROMPT.BONUS_NUMBER);
+
+    this.#validatePositiveNumber(bonusNumberInput);
+
+    return Number(bonusNumberInput);
+  }
 }
 
 export default InputView;
