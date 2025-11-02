@@ -1,7 +1,7 @@
-import { LOTTO } from "./constants/constants.js";
-import { AMOUNT_NOT_MULTIPLE_OF_PRICE_ERROR } from "./constants/errorMessage.js";
-import randomPickUniqueNumber from "./utils/randomPickUniqueNumber.js";
-import ApplicationError from "./utils/ApplicationError.js";
+import { LOTTO } from "../constants/constants.js";
+import { AMOUNT_NOT_MULTIPLE_OF_PRICE_ERROR } from "../constants/errorMessage.js";
+import randomPickUniqueNumber from "../utils/randomPickUniqueNumber.js";
+import ApplicationError from "../utils/ApplicationError.js";
 
 class LottoSalesTerminal {
   #price;

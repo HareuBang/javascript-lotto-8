@@ -1,4 +1,4 @@
-import LottoSalesTerminal from "../src/LottoSalesTerminal.js";
+import LottoSalesTerminal from "../src/model/LottoSalesTerminal.js";
 import { AMOUNT_NOT_MULTIPLE_OF_PRICE_ERROR } from "../src/constants/errorMessage.js";
 import { LOTTO } from "../src/constants/constants.js";
 

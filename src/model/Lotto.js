@@ -1,6 +1,6 @@
-import { LOTTO } from "./constants/constants.js";
-import { LOTTO_ERROR } from "./constants/errorMessage.js";
-import ApplicationError from "./utils/ApplicationError.js";
+import { LOTTO } from "../constants/constants.js";
+import { LOTTO_ERROR } from "../constants/errorMessage.js";
+import ApplicationError from "../utils/ApplicationError.js";
 
 class Lotto {
   #numbers;
