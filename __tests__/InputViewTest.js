@@ -31,6 +31,13 @@ describe("콘솔 입력 클래스 테스트", () => {
     });
   });
 
+  test("handleBonusNumber 기능 테스트 - 보너스 번호를 입력하면 숫자로 변환하여 반환합니다.", async () => {
+    mockReadLineAsync.mockResolvedValue("7");
+
+    const result = await inputView.handleBonusNumber();
+    expect(result).toBe(7);
+  });
+
   describe("handlePurchaseAmount 예외 테스트", () => {
     test.each([[""], ["   "]])(
       `입력값이 빈 문자열 또는 공백일 경우 "${INPUT_EMPTY_ERROR}" 에러를 반환합니다.`,
@@ -115,6 +122,51 @@ describe("콘솔 입력 클래스 테스트", () => {
         mockReadLineAsync.mockResolvedValue(winningLotto);
 
         await expect(inputView.handleWinningLotto()).rejects.toThrow(
+          NUMBER_ERROR.NOT_POSITIVE_NUMBER
+        );
+      }
+    );
+  });
+
+  describe("handleBonusNumber 예외 테스트", () => {
+    test.each([[""], ["   "]])(
+      `입력값이 빈 문자열 또는 공백일 경우 "${INPUT_EMPTY_ERROR}" 에러를 반환합니다. (입력: '%s')`,
+      async (bonusNumber) => {
+        mockReadLineAsync.mockResolvedValue(bonusNumber);
+
+        await expect(inputView.handleBonusNumber()).rejects.toThrow(
+          INPUT_EMPTY_ERROR
+        );
+      }
+    );
+    test.each([["amount"], ["1500A0"], ["1000A"]])(
+      `입력값이 숫자가 아닐 경우 "${NUMBER_ERROR.NOT_NUMBER}" 에러를 반환합니다. (입력: '%s')`,
+      async (bonusNumber) => {
+        mockReadLineAsync.mockResolvedValue(bonusNumber);
+
+        await expect(inputView.handleBonusNumber()).rejects.toThrow(
+          NUMBER_ERROR.NOT_NUMBER
+        );
+      }
+    );
+
+    test.each([["1000.1"], ["13000.0001"]])(
+      `입력값이 정수가 아닐 경우 "${NUMBER_ERROR.NOT_INTEGER}" 에러를 반환합니다. (입력: '%s')`,
+      async (bonusNumber) => {
+        mockReadLineAsync.mockResolvedValue(bonusNumber);
+
+        await expect(inputView.handleBonusNumber()).rejects.toThrow(
+          NUMBER_ERROR.NOT_INTEGER
+        );
+      }
+    );
+
+    test.each([["0"], ["-1"], ["-1000"]])(
+      `입력값이 0 이하일 경우 "${NUMBER_ERROR.NOT_POSITIVE_NUMBER}" 에러를 반환합니다. (입력: '%s')`,
+      async (bonusNumber) => {
+        mockReadLineAsync.mockResolvedValue(bonusNumber);
+
+        await expect(inputView.handleBonusNumber()).rejects.toThrow(
           NUMBER_ERROR.NOT_POSITIVE_NUMBER
         );
       }
