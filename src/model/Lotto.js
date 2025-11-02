@@ -1,6 +1,7 @@
 import { LOTTO } from "../constants/constants.js";
 import { LOTTO_ERROR } from "../constants/errorMessage.js";
 import ApplicationError from "../utils/ApplicationError.js";
+import validateLottoNumberRang from "../utils/validateLottoNumberRang.js";
 
 class Lotto {
   #numbers;
@@ -19,13 +20,7 @@ class Lotto {
       throw new ApplicationError(LOTTO_ERROR.DUPLICATE_NUMBER);
     }
 
-    const isInvalidRang = numbers.some(
-      (number) => number < LOTTO.MIN_NUMBER || number > LOTTO.MAX_NUMBER
-    );
-
-    if (isInvalidRang) {
-      throw new ApplicationError(LOTTO_ERROR.INVALID_RANGE);
-    }
+    numbers.forEach((number) => validateLottoNumberRang(number));
   }
 
   // TODO: 추가 기능 구현
