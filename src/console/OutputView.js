@@ -7,9 +7,14 @@ class OutputView {
     this.#print = print;
   }
 
-  renderLottoTicket({ quantity, lottos }) {
+  renderLottoTicket(lottoTicket) {
+    const quantity = lottoTicket.getQuantity();
+    const lottos = lottoTicket.getLottos();
+
     const lottoQuantity = `${quantity}개를 구매했습니다.`;
-    const lottoList = lottos.map((lotto) => `[${lotto.join(", ")}]`).join("\n");
+    const lottoList = lottos
+      .map((lotto) => `[${lotto.getNumbers().join(", ")}]`)
+      .join("\n");
 
     this.#print(`${lottoQuantity}\n${lottoList}`);
   }
