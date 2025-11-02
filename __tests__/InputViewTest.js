@@ -13,22 +13,18 @@ describe("콘솔 입력 클래스 테스트", () => {
     inputView = new InputView(mockReadLineAsync);
   });
 
-  describe("handlePurchaseAmount 기능 테스트", () => {
-    test("구입할 금액을 입력하면 숫자로 변환하여 반환합니다.", async () => {
-      mockReadLineAsync.mockResolvedValue("3000");
+  test("handlePurchaseAmount 기능 테스트- 구입할 금액을 입력하면 숫자로 변환하여 반환합니다.", async () => {
+    mockReadLineAsync.mockResolvedValue("3000");
 
-      const result = await inputView.handlePurchaseAmount();
-      expect(result).toBe(3000);
-    });
+    const result = await inputView.handlePurchaseAmount();
+    expect(result).toBe(3000);
   });
 
-  describe("handleWinningLotto 기능 테스트", () => {
-    test("당첨 번호를 입력하면 ,(쉼표)를 기준으로 분리된 숫자 배열을 반환합니다.", async () => {
-      mockReadLineAsync.mockResolvedValue("7,6,4,11,32,24");
+  test("handleWinningLotto 기능 테스트- 당첨 번호를 입력하면 ,(쉼표)를 기준으로 분리된 숫자 배열을 반환합니다.", async () => {
+    mockReadLineAsync.mockResolvedValue("7,6,4,11,32,24");
 
-      const result = await inputView.handleWinningLotto();
-      expect(result).toEqual([7, 6, 4, 11, 32, 24]);
-    });
+    const result = await inputView.handleWinningLotto();
+    expect(result).toEqual([7, 6, 4, 11, 32, 24]);
   });
 
   test("handleBonusNumber 기능 테스트 - 보너스 번호를 입력하면 숫자로 변환하여 반환합니다.", async () => {
