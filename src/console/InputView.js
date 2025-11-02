@@ -3,14 +3,14 @@ import { PROMPT } from "../constants/message.js";
 import { validatePositiveNumber } from "../utils/validatePositiveNumber.js";
 
 class InputView {
-  #onrReadLineAsync;
+  #readLineAsync;
 
-  constructor(onrReadLineAsync = MissionUtils.Console.readLineAsync) {
-    this.#onrReadLineAsync = onrReadLineAsync;
+  constructor(readLineAsync = MissionUtils.Console.readLineAsync) {
+    this.#readLineAsync = readLineAsync;
   }
 
   async handlePurchaseAmount() {
-    const amountInput = await this.#onrReadLineAsync(PROMPT.PURCHASE_AMOUNT);
+    const amountInput = await this.#readLineAsync(PROMPT.PURCHASE_AMOUNT);
 
     validatePositiveNumber(amountInput);
 

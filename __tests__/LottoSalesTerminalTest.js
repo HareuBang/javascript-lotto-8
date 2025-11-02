@@ -22,9 +22,9 @@ describe("로또 판매 단말기 테스트", () => {
     }));
 
     lottoSalesTerminal = new LottoSalesTerminal({
-      onRandomPickUniqueNumber: mockRandomPickUniqueNumber,
-      onLottoFactory: mockLottoFactory,
-      onLottoTicketFactory: mockLottoTicketFactory,
+      randomPickUniqueNumberFn: mockRandomPickUniqueNumber,
+      lottoFactory: mockLottoFactory,
+      lottoTicketFactory: mockLottoTicketFactory,
     });
   });
 

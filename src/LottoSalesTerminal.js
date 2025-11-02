@@ -5,19 +5,19 @@ import ApplicationError from "./utils/ApplicationError.js";
 
 class LottoSalesTerminal {
   #price;
-  #onRandomPickUniqueNumber;
-  #onLottoFactory;
-  #onLottoTicketFactory;
+  #randomPickUniqueNumberFn;
+  #lottoFactory;
+  #lottoTicketFactory;
 
   constructor({
-    onRandomPickUniqueNumber = randomPickUniqueNumber,
-    onLottoFactory,
-    onLottoTicketFactory,
+    randomPickUniqueNumberFn = randomPickUniqueNumber,
+    lottoFactory,
+    lottoTicketFactory,
   }) {
     this.#price = LOTTO.PRICE;
-    this.#onRandomPickUniqueNumber = onRandomPickUniqueNumber;
-    this.#onLottoFactory = onLottoFactory;
-    this.#onLottoTicketFactory = onLottoTicketFactory;
+    this.#randomPickUniqueNumberFn = randomPickUniqueNumberFn;
+    this.#lottoFactory = lottoFactory;
+    this.#lottoTicketFactory = lottoTicketFactory;
   }
 
   #validateAmount(amount) {
@@ -30,10 +30,10 @@ class LottoSalesTerminal {
   }
 
   #issueLotto() {
-    const lotto = this.#onRandomPickUniqueNumber();
+    const lotto = this.#randomPickUniqueNumberFn();
     const sortedLotto = lotto.sort((a, b) => a - b);
 
-    return this.#onLottoFactory(sortedLotto);
+    return this.#lottoFactory(sortedLotto);
   }
 
   #issueAutomaticLottos(quantity) {
@@ -46,7 +46,7 @@ class LottoSalesTerminal {
     const quantity = this.#calculateQuantity(amount);
     const lottos = this.#issueAutomaticLottos(quantity);
 
-    return this.#onLottoTicketFactory({ amount, quantity, lottos });
+    return this.#lottoTicketFactory({ amount, quantity, lottos });
   }
 }
 
