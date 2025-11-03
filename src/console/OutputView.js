@@ -39,6 +39,10 @@ class OutputView {
 
     this.#print(winningDetailsMessage);
   }
+
+  renderRate(rate) {
+    this.#print(`총 수익률은 ${rate}%입니다.`);
+  }
 }
 
 export default OutputView;

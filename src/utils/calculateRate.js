@@ -7,7 +7,7 @@ const calculateRate = (lottoTicket, winningResult) => {
     0
   );
 
-  const rate = (totalWinningAmount / amount) * 100;
+  const rate = ((totalWinningAmount / amount) * 100).toFixed(2);
 
-  return rate.toFixed(2);
+  return parseFloat(rate);
 };
