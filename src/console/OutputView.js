@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+import { PRINT } from "../constants/message.js";
 
 class OutputView {
   #print;
@@ -11,17 +12,17 @@ class OutputView {
     const quantity = lottoTicket.getQuantity();
     const lottos = lottoTicket.getLottos();
 
-    const lottoQuantity = `${quantity}개를 구매했습니다.`;
+    const lottoQuantity = `\n${quantity}개를 구매했습니다.`;
     const lottoList = lottos
       .map((lotto) => `[${lotto.getNumber().join(", ")}]`)
       .join("\n");
 
-    this.#print(`${lottoQuantity}\n${lottoList}`);
+    this.#print(`${lottoQuantity}\n${lottoList}\n`);
   }
 
   #bonusMessage(matchCount, isBonus) {
     if (matchCount === 5 && isBonus) {
-      return `, 보너스 볼 일치`;
+      return PRINT.BONUS_MESSAGE;
     }
 
     return "";
@@ -37,7 +38,7 @@ class OutputView {
       })
       .join("\n");
 
-    this.#print(winningDetailsMessage);
+    this.#print(`${PRINT.WINNING_DETAIL_TITLE}${winningDetailsMessage}`);
   }
 
   renderRate(rate) {
