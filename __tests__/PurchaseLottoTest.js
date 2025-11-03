@@ -1,6 +1,6 @@
 import PurchaseLotto from "../src/controller/PurchaseLotto.js";
 
-test("사용자가 금액을 입력하면 로또 발행 및 출력이 정상적으로 동작한다", () => {
+test("사용자가 금액을 입력하면 로또 발행 및 출력이 정상적으로 동작한다", async () => {
   const amount = 2000;
   const quantity = 2;
   const lottos = [
@@ -18,12 +18,12 @@ test("사용자가 금액을 입력하면 로또 발행 및 출력이 정상적�
   const mockOutputView = { renderLottoTicket: jest.fn() };
 
   const purchaseLotto = new PurchaseLotto({
-    inputview: mockInputView,
+    inputView: mockInputView,
     lottoSalesTerminal: mockLottoSalesTerminal,
     outputView: mockOutputView,
   });
 
-  purchaseLotto.run();
+  await purchaseLotto.run();
 
   // InputView
   expect(mockInputView.handlePurchaseAmount).toHaveBeenCalledTimes(1);
