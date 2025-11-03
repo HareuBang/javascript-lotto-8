@@ -18,6 +18,27 @@ class OutputView {
 
     this.#print(`${lottoQuantity}\n${lottoList}`);
   }
+
+  #bonusMessage(matchCount, isBonus) {
+    if (matchCount === 5 && isBonus) {
+      return `, 보너스 볼 일치`;
+    }
+
+    return "";
+  }
+
+  renderWinningDetails(winningDetails) {
+    const winningDetailsMessage = winningDetails
+      .map(({ matchCount, isBonus, prize, count }) => {
+        const prizeMessage = prize.toLocaleString();
+        const bonusMessage = this.#bonusMessage(matchCount, isBonus);
+
+        return `${matchCount}개 일치${bonusMessage} (${prizeMessage}원) - ${count}개`;
+      })
+      .join("\n");
+
+    this.#print(winningDetailsMessage);
+  }
 }
 
 export default OutputView;
