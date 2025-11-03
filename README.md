@@ -91,4 +91,51 @@
   - ex) `[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.`
 - [x] 에러가 발생한 지점부터 다시 입력을 받는다.
 
-##
+---
+
+<br>
+
+## 📁 프로젝트 구조
+
+```
+🏎️ racingcar/
+├── 📂 src/
+│   ├── 📂 __tests__/                   # Jest 테스트 폴더
+│   │   ├── ApplicationTest.js
+│   │   ├── InputViewTest.js
+│   │   ├── LottoSalesTerminalTest.js
+│   │   ├── LottoTest.js
+│   │   ├── OutputViewTest.js
+│   │   ├── PurchaseLottoTest.js
+│   │   └── WinningLottoCheckerTest.js
+│   │
+│   ├── 📂 console/
+│   │   ├── InputView.js                # 입력 처리 (Console API)
+│   │   └── OutputView.js               # 출력 처리 (Console API)
+│   │
+│   ├── 📂 constants/
+│   │   ├── constants.js                # 프로그램에서 사용하는 상수
+│   │   ├── errorMessage.js             # 에러 메시지 상수
+│   │   └── message.js                  # 입출력 메시지 상수
+│   │
+│   ├── 📂 controller/
+│   │   ├── PurchaseLotto.js            # 로또 구입, 발행 controller
+│   │   └── WinningLottoService.js      # 당첨 확인, 수익률 계산 controller
+│   │
+│   ├── 📂 model/
+│   │   ├── Lotto.js                    # 로또 객체
+│   │   ├── LottoFactory.js             # 로또 객체를 생성하는 팩토리
+│   │   ├── LottoSalesTerminal.js       # 로또 발행하는 객체
+│   │   ├── LottoTicket.js              # 로또 영수증 객체
+│   │   ├── LottoTicketFactory.js       # 로또 영수증 객체를 생성하는 팩토리
+│   │   ├── WinningLottoChecker.js      # 로또 당첨 여부를 확인하는 객체
+│   │
+│   ├── 📂 utils/
+│   │   ├── ApplicationError.js         # 에러 처리 중앙 관리
+│   │   ├── calculateRate.js            # 수익률 계산 함수
+│   │   ├── randomPickUniqueNumber.js   # 로또 랜덤 함수
+│   │   └── validateLottoNumberRange.js # 로또 번호 범위에 대한 검증
+│   │
+│   ├── App.js                          # 프로그램 실행 진입점
+│   └── index.js                        # 실행 스크립트
+```
