@@ -10,7 +10,7 @@ class WinningLottoChecker {
     }
   }
 
-  #matchLottos(lottoTicket, winningLotto, bonusNumber) {
+  #setupWinningResult(lottoTicket, winningLotto) {
     const lottos = lottoTicket.getLottos();
     const winningLottoNumbers = new Set(winningLotto.getNumber());
     const winningResult = WINNING_CRITERIA.map((criteria) => ({
@@ -18,22 +18,42 @@ class WinningLottoChecker {
       count: 0,
     }));
 
-    lottos.forEach((lotto) => {
-      const lottoNumbers = lotto.getNumber();
+    return { lottos, winningLottoNumbers, winningResult };
+  }
 
-      const matchCount = lottoNumbers.filter((number) =>
-        winningLottoNumbers.has(number)
-      ).length;
+  #countMatches(lottoNumbers, winningLottoNumbers) {
+    return lottoNumbers.filter((number) => winningLottoNumbers.has(number))
+      .length;
+  }
 
-      let isBonus = false;
-      if (matchCount === 5) isBonus = lottoNumbers.includes(bonusNumber);
+  #isBonusMatch(matchCount, lottoNumbers, bonusNumber) {
+    return matchCount === 5 && lottoNumbers.includes(bonusNumber);
+  }
 
-      const matchCriteria = winningResult.find(
-        (match) => match.matchCount === matchCount && match.isBonus === isBonus
-      );
+  #updateWinningResult(lotto, winningLottoNumbers, bonusNumber, winningResult) {
+    const lottoNumbers = lotto.getNumber();
+    const matchCount = this.#countMatches(lottoNumbers, winningLottoNumbers);
+    const isBonus = this.#isBonusMatch(matchCount, lottoNumbers, bonusNumber);
 
-      if (matchCriteria) matchCriteria.count++;
-    });
+    const matchCriteria = winningResult.find(
+      (match) => match.matchCount === matchCount && match.isBonus === isBonus
+    );
+
+    if (matchCriteria) matchCriteria.count++;
+  }
+
+  #matchLottos(lottoTicket, winningLotto, bonusNumber) {
+    const { lottos, winningLottoNumbers, winningResult } =
+      this.#setupWinningResult(lottoTicket, winningLotto);
+
+    lottos.forEach((lotto) =>
+      this.#updateWinningResult(
+        lotto,
+        winningLottoNumbers,
+        bonusNumber,
+        winningResult
+      )
+    );
 
     return winningResult;
   }
