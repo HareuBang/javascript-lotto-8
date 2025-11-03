@@ -81,4 +81,27 @@ describe("콘솔 출력 클래스 테스트", () => {
       expect(mockPrint).toHaveBeenCalledWith(expected);
     });
   });
+
+  describe("renderRate 기능 테스트", () => {
+    let outputView;
+    let mockPrint;
+
+    beforeEach(() => {
+      mockPrint = jest.fn();
+      outputView = new OutputView(mockPrint);
+    });
+
+    test("수익률을 정상적으로 출력한다.", () => {
+      const amount = 8000;
+      const totalWinningAmount = 5000;
+      const rate = parseFloat(((totalWinningAmount / amount) * 100).toFixed(2));
+
+      const expected = `총 수익률은 ${rate}%입니다.`;
+
+      outputView.renderRate(rate);
+
+      expect(mockPrint).toHaveBeenCalledTimes(1);
+      expect(mockPrint).toHaveBeenCalledWith(expected);
+    });
+  });
 });
