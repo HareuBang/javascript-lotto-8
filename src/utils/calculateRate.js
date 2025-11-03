@@ -11,3 +11,5 @@ const calculateRate = (lottoTicket, winningResult) => {
 
   return parseFloat(rate);
 };
+
+export default calculateRate;

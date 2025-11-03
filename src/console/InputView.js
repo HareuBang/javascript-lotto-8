@@ -1,4 +1,4 @@
-import MissionUtils from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 import { PROMPT } from "../constants/message.js";
 import ApplicationError from "../utils/ApplicationError.js";
 import { INPUT_EMPTY_ERROR, NUMBER_ERROR } from "../constants/errorMessage.js";
