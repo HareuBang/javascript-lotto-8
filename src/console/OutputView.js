@@ -13,7 +13,7 @@ class OutputView {
 
     const lottoQuantity = `${quantity}개를 구매했습니다.`;
     const lottoList = lottos
-      .map((lotto) => `[${lotto.getNumbers().join(", ")}]`)
+      .map((lotto) => `[${lotto.getNumber().join(", ")}]`)
       .join("\n");
 
     this.#print(`${lottoQuantity}\n${lottoList}`);

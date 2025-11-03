@@ -3,14 +3,14 @@ import { WINNING_CRITERIA } from "../constants/constants.js";
 class WinningLottoChecker {
   #matchLottos(lottoTicket, winningLotto, bonusNumber) {
     const lottos = lottoTicket.getLottos();
-    const winningLottoNumbers = new Set(winningLotto.getNumbers());
+    const winningLottoNumbers = new Set(winningLotto.getNumber());
     const winningResult = WINNING_CRITERIA.map((criteria) => ({
       ...criteria,
       count: 0,
     }));
 
     lottos.forEach((lotto) => {
-      const lottoNumbers = lotto.getNumbers();
+      const lottoNumbers = lotto.getNumber();
 
       const matchCount = lottoNumbers.filter((number) =>
         winningLottoNumbers.has(number)

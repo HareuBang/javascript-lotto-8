@@ -5,7 +5,7 @@ class MockLotto {
     this.numbers = numbers;
   }
 
-  getNumbers() {
+  getNumber() {
     return [...this.numbers];
   }
 }
