@@ -1,5 +1,5 @@
 import { WINNING_CRITERIA } from "../constants/constants.js";
-import validateLottoNumberRang from "../utils/validateLottoNumberRang.js";
+import validateLottoNumberRange from "../utils/validateLottoNumberRange.js";
 
 class WinningLottoChecker {
   #matchLottos(lottoTicket, winningLotto, bonusNumber) {
@@ -31,7 +31,7 @@ class WinningLottoChecker {
   }
 
   evaluateWinning(lottoTicket, winningLotto, bonusNumber) {
-    validateLottoNumberRang(bonusNumber);
+    validateLottoNumberRange(bonusNumber);
 
     return this.#matchLottos(lottoTicket, winningLotto, bonusNumber);
   }
