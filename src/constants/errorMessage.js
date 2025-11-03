@@ -16,3 +16,6 @@ export const NUMBER_ERROR = {
 };
 
 export const INPUT_EMPTY_ERROR = "값을 입력하셔야 합니다.";
+
+export const BONUS_NUMBER_DUPLICATE_ERROR =
+  "보너스 번호는 당첨 번호와 중복될 수 없습니다.";

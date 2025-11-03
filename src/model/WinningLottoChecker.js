@@ -1,7 +1,15 @@
 import { WINNING_CRITERIA } from "../constants/constants.js";
 import validateLottoNumberRange from "../utils/validateLottoNumberRange.js";
+import ApplicationError from "../utils/ApplicationError.js";
+import { BONUS_NUMBER_DUPLICATE_ERROR } from "../constants/errorMessage.js";
 
 class WinningLottoChecker {
+  #validateBonusNumber(winningLotto, bonusNumber) {
+    if (winningLotto.getNumber().includes(bonusNumber)) {
+      throw new ApplicationError(BONUS_NUMBER_DUPLICATE_ERROR);
+    }
+  }
+
   #matchLottos(lottoTicket, winningLotto, bonusNumber) {
     const lottos = lottoTicket.getLottos();
     const winningLottoNumbers = new Set(winningLotto.getNumber());
@@ -32,6 +40,7 @@ class WinningLottoChecker {
 
   evaluateWinning(lottoTicket, winningLotto, bonusNumber) {
     validateLottoNumberRange(bonusNumber);
+    this.#validateBonusNumber(winningLotto, bonusNumber);
 
     return this.#matchLottos(lottoTicket, winningLotto, bonusNumber);
   }
